@@ -36,7 +36,7 @@ it("should merge", function(){
     expect(Object.keys(stuff).length).toBe(4);
 })
 
-fit("gets interesting", function(){
+it("gets interesting", function(){
     let things = {thing: "a", thing2: "b", thing3: "c", thing4: "d"};
     let pre = {pre1: "p1", pre2: "p2", pre3: "p3"}
     let post = {post1: "pt1", post2: "pt2", post3: "pt3"}
