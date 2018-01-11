@@ -2,7 +2,7 @@
 const { Map, List, fromJS } = require('immutable')
 let immutableMatchers = require('jasmine-immutable-matchers')
 
-fdescribe("javascript tests", function () {
+describe("javascript tests", function () {
     beforeEach(function(){
         jasmine.addMatchers(immutableMatchers);
     });
@@ -123,4 +123,30 @@ fdescribe("javascript tests", function () {
         const actual = Map({ a:  { b:  { c:  [ 3, 4, 5 ], d: 7 } } });
         expect(expected.get("a")).not.toEqualImmutable(actual.get("a"));
     })
+
+    it("can do a thing you shouldn't do(?) - inject a normal object into a Map via set", function(){
+        const expected = fromJS({ a:  [ 3, 4, 5 ] });
+        const set_value = expected.set("a", [3, 4, 5]);
+        const merge_value = expected.merge({"a": [3, 4, 5]});
+        expect(expected.get("a")).not.toEqualImmutable(set_value.get("a"));
+        expect(expected.get("a")).toEqualImmutable(merge_value.get("a"));
+    })
+
+    xit("let's do something horrific", function(){
+        let stuff = { a:  [ 3, 4, 5 ] };
+        const expected = fromJS(stuff);
+        const set_value = expected.set("a", stuff.a);
+
+        console.log("stuff", stuff);
+        console.log("expected", expected);
+        console.log("set_value", set_value);
+
+        set_value.get("a")[2] = 6;
+
+        console.log("stuff", stuff);
+        console.log("expected", expected);
+        console.log("set_value", set_value);
+    })
+
+
 });
