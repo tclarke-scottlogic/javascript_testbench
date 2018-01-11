@@ -1,6 +1,5 @@
 "use strict"
-const { Map, List } = require('immutable')
-let { toJSON, fromJSON } = require('transit-immutable-js')
+const { Map, List, fromJS } = require('immutable')
 let immutableMatchers = require('jasmine-immutable-matchers')
 
 fdescribe("javascript tests", function () {
@@ -100,4 +99,28 @@ fdescribe("javascript tests", function () {
         expect(mutable).not.toBeImmutable();
         expect(immutable).toBeImmutable();
     });
+
+    it("can do fromJS", function(){
+        const nested = fromJS({ a: { b: { c: [ 3, 4, 5 ] } } })
+
+        const nested2 = nested.mergeDeep({ a: { b: { d: 6 } } })
+        // Map { a: Map { b: Map { c: List [ 3, 4, 5 ], d: 6 } } }
+        
+        expect(nested2.getIn([ 'a', 'b', 'd' ])).toBe(6);
+        expect(nested2.get('a').get('b').get('d')).toBe(6);
+        
+        const nested3 = nested2.updateIn([ 'a', 'b', 'd' ], value => value + 1)
+        const expected = fromJS({ a:  { b:  { c:  [ 3, 4, 5 ], d: 7 } } });
+        expect(nested3).toEqualImmutable(expected);
+        
+        const nested4 = nested3.updateIn([ 'a', 'b', 'c' ], list => list.push(6))
+        // Map { a: Map { b: Map { c: List [ 3, 4, 5, 6 ], d: 7 } } }
+        //console.log(nested4) 
+    })
+
+    it("can do a thing you shouldn't do - inject a normal object into a Map", function(){
+        const expected = fromJS({ a:  { b:  { c:  [ 3, 4, 5 ], d: 7 } } });
+        const actual = Map({ a:  { b:  { c:  [ 3, 4, 5 ], d: 7 } } });
+        expect(expected.get("a")).not.toEqualImmutable(actual.get("a"));
+    })
 });
