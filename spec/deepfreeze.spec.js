@@ -15,7 +15,6 @@ describe("into the freezer", function(){
     things.thing5 = "new"; 
     things["thing5"] = "new-thing"; 
 
-    console.info(things);
     expect(things.thing5).toBe(undefined);
 })
 })
