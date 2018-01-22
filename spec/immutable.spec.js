@@ -2,7 +2,7 @@
 const { Map, List, fromJS } = require('immutable')
 let immutableMatchers = require('jasmine-immutable-matchers')
 
-describe("javascript tests", function () {
+describe("immutable js tests", function () {
     beforeEach(function(){
         jasmine.addMatchers(immutableMatchers);
     });
@@ -132,6 +132,7 @@ describe("javascript tests", function () {
         expect(expected.get("a")).toEqualImmutable(merge_value.get("a"));
     })
 
+/*
     xit("let's do something horrific", function(){
         let stuff = { a:  [ 3, 4, 5 ] };
         const expected = fromJS(stuff);
@@ -147,6 +148,6 @@ describe("javascript tests", function () {
         console.log("expected", expected);
         console.log("set_value", set_value);
     })
-
+*/
 
 });
