@@ -138,4 +138,36 @@ describe("regexes", function(){
         badly_expected.index = 0;
         expect(good_regex.exec("badly")).toEqual(badly_expected);
      })
+
+     it("test boundaries", function(){
+        let bounded_regex = /\bstuff\b/;
+
+        expect(bounded_regex.test("goodstuff")).not.toBeTruthy();
+
+        expect(bounded_regex.test("my stuff")).toBeTruthy();
+
+        expect(bounded_regex.test("my-stuff-thing")).toBeTruthy();
+        expect(bounded_regex.test("my!stuff!thing")).toBeTruthy();
+        expect(bounded_regex.test("my1stuff1thing")).not.toBeTruthy();
+     })
+
+     it("is fine with an inner loop", function(){
+        let backtrack_good = /([01]+)b/;
+        expect(backtrack_good.test("1010101010010101001010101010101010101010101010101010101011111110000011110101010110b")).toBeTruthy();
+        expect(backtrack_good.test("1010101010010101001010101010101010101010101010101010101011111110000011110101010110")).not.toBeTruthy();
+     })
+
+     it("is fine with an outer loop", function(){
+        let backtrack_good = /([01])+b/;
+        expect(backtrack_good.test("1010101010010101001010101010101010101010101010101010101011111110000011110101010110b")).toBeTruthy();
+        expect(backtrack_good.test("1010101010010101001010101010101010101010101010101010101011111110000011110101010110")).not.toBeTruthy();
+     })
+
+     it("encounters a backtraging bug if you do both inner and outer loop", function(){
+        let backtrack_bug = /([01]+)+b/;
+        expect(backtrack_bug.test("1010101010010101001010101010101010101010101010101010101011111110000011110101010110b")).toBeTruthy();
+        
+        // Utterly non-performant
+        // expect(backtrack_bug.test("1010101010010101001010101010101010101010101010101010101011111110000011110101010110")).not.toBeTruthy();
+     })
 })
