@@ -163,11 +163,39 @@ describe("regexes", function(){
         expect(backtrack_good.test("1010101010010101001010101010101010101010101010101010101011111110000011110101010110")).not.toBeTruthy();
      })
 
-     it("encounters a backtraging bug if you do both inner and outer loop", function(){
+     it("encounters a backtracking bug if you do both inner and outer loop", function(){
         let backtrack_bug = /([01]+)+b/;
         expect(backtrack_bug.test("1010101010010101001010101010101010101010101010101010101011111110000011110101010110b")).toBeTruthy();
         
         // Utterly non-performant
         // expect(backtrack_bug.test("1010101010010101001010101010101010101010101010101010101011111110000011110101010110")).not.toBeTruthy();
      })
+
+     it("uppercases stuff", function(){
+        let tla_regex = /\b(\w\w(\w|\d))\b/ig;
+        let input = "currently watched by the CiA, the fbi and mI6";
+        expect(input.replace(tla_regex, function(str){
+            if(str.toLowerCase() === "the" || str.toLowerCase() === "and"){
+                return str;
+            }
+            return str.toUpperCase();
+        })).toEqual("currently watched by the CIA, the FBI and MI6");
+     })
+
+     it("greedy vs non-greedy", function(){
+        let greedy_regex = /\(.*\)/ig;
+        let input = "(well, )this is a bit of a (sodding )problem";
+        expect(input.replace(greedy_regex, "")).toEqual("problem"); // Failure
+
+        let lazy_regex = /\(.*?\)/ig;
+        expect(input.replace(lazy_regex, "")).toEqual("this is a bit of a problem"); // Success
+    })
+
+    it("can handle 'deathlord' by escaping stupid characters", function(){
+        var name = "dea+hl[]rd";
+        var text = "This dea+hl[]rd guy is super annoying.";
+        var escaped = name.replace(/[^\w\s]/g, "\\$&");
+        var regexp = new RegExp("\\b(" + escaped + ")\\b", "gi");
+        expect(text.replace(regexp, "_$1_")).toEqual("This _dea+hl[]rd_ guy is super annoying.")
+    })
 })
