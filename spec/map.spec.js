@@ -1,4 +1,4 @@
-xdescribe("Map", function(){
+describe("Map", function(){
     it("Length is always 0", function(){
         expect(Map.length).toEqual(0);
     });
@@ -21,16 +21,36 @@ xdescribe("Map", function(){
         }
     });
 
-    xit("keys and values", function(){
+    it("keys", function(){
         let map = new Map();
         map.set("test", 1);
         map.set("toast", 2);
         map.set("tust", 3);
         map.set("tist", 4);
         map.set("tast", 5);
+        
+        let actual_keys = [];
         for(let key of map.keys()){
-            console.info(key);
+            actual_keys.push(key);
         }
+        let expected_keys = ["test", "toast", "tust", "tist", "tast"];
+        expect(actual_keys).toEqual(expected_keys);
+    });
+
+    it("values", function(){
+        let map = new Map();
+        map.set("test", 1);
+        map.set("toast", 2);
+        map.set("tust", 3);
+        map.set("tist", 4);
+        map.set("tast", 5);
+        
+        let actual_values = [];
+        for(let val of map.values()){
+            actual_values.push(val);
+        }
+        let expected_values = [1,2,3,4,5];
+        expect(actual_values).toEqual(expected_values);
     })
 
 });
