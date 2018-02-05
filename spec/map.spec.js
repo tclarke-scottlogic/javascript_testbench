@@ -1,7 +1,4 @@
-
-
-
-fdescribe("Map", function(){
+xdescribe("Map", function(){
     it("Length is always 0", function(){
         expect(Map.length).toEqual(0);
     });
@@ -24,7 +21,16 @@ fdescribe("Map", function(){
         }
     });
 
-
-
+    xit("keys and values", function(){
+        let map = new Map();
+        map.set("test", 1);
+        map.set("toast", 2);
+        map.set("tust", 3);
+        map.set("tist", 4);
+        map.set("tast", 5);
+        for(let key of map.keys()){
+            console.info(key);
+        }
+    })
 
 });
