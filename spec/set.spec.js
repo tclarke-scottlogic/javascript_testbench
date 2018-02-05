@@ -1,8 +1,5 @@
 
-
-
-
-xdescribe("Set", function(){
+describe("Set", function(){
     
     it("adds values", function(){
         let set = new Set();
@@ -11,16 +8,10 @@ xdescribe("Set", function(){
         set.add("tust");
         set.add("tist");
         set.add("tast");
-        for(let t of set.keys()){
-            console.info(t);
-        }
-        for(let t of set.values()){
-            console.info(t);
-        }
         for(let t of set.entries()){
-            console.info(t);
+            expect(set[0]).toBe(set[1]);
         }
-        expect(set.count()).toBe(5);
+        expect(set.size).toBe(5);
     })
 
 });
