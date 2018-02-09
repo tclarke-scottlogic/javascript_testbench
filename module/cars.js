@@ -11,18 +11,19 @@ function makeEmpty(length){
 function Drive(road){
     road = [...road];
     for(let x = road.length - 1; x > 0; x--){
-        road[x] = road[x-1].slice();
+        road[x] = [...road[x-1]];
     }
     road[0] = makeEmpty(road[0].length);
     return road;
 }
 
 function DriveTime(road, time){
-    console.log("--------");
+    console.log("\n--------");
     for(let t = 0; t < time; ++t){
         road = Drive(road);
     }
     console.log(road);
+    console.log("--------");
     return road;
 }
 

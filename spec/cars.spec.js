@@ -51,7 +51,6 @@ fdescribe("cars", function(){
         expect(Drive.drive_time(road,5)).toEqual(expected);
     })
 
-
     it("two cars", function(){
         let car1 = makeCar("red", 1);
         let car2 = makeCar("blue", 1);
@@ -74,5 +73,53 @@ fdescribe("cars", function(){
             [null,null],
         ];
         expect(Drive.drive_time(road,5)).toEqual(expected);
+    })
+
+    it("two cars", function(){
+        let car1 = makeCar("red", 1);
+        let car2 = makeCar("blue", 1);
+        let road = [
+            [null,car1],
+            [null,null],
+            [null,null],
+            [null,car2],
+            [null,null],
+            [null,null],
+            [null,null],
+        ];
+        let expected = [
+            [null,null],
+            [null,null],
+            [null,null],
+            [null,car1],
+            [null,null],
+            [null,null],
+            [null,car2],
+        ];
+        expect(Drive.drive_time(road,3)).toEqual(expected);
+    })
+
+    xit("two cars diff speeds", function(){
+        let car1 = makeCar("red", 1);
+        let car2 = makeCar("blue", 2);
+        let road = [
+            [car1,car2],
+            [null,null],
+            [null,null],
+            [null,null],
+            [null,null],
+            [null,null],
+            [null,null],
+        ];
+        let expected = [
+            [null,null],
+            [null,null],
+            [null,null],
+            [null,car1],
+            [null,null],
+            [null,null],
+            [null,car2],
+        ];
+        expect(Drive.drive_time(road,3)).toEqual(expected);
     })
 }); 
