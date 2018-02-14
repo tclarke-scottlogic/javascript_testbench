@@ -219,4 +219,28 @@ fdescribe("cars", function(){
         expect(Drive.drive_time(road,4)).toEqual(expected);
     })
 
+    it("", function(){
+        let car1 = makeCar("red", 1);
+        let car2 = makeCar("blue", 2);
+        let car3 = makeCar("green", 2);
+        let road = [
+            [car1,car2],
+            [car3,null],
+            [null,null],
+            [null,null],
+            [null,null],
+            [null,null],
+            [null,null],
+        ];
+        let expected = [
+            [null,null],
+            [null,null],
+            [null,car1],
+            [null,null],
+            [null,car2],
+            [null,car3],
+            [null,null],
+        ];
+        expect(Drive.drive_time(road,2)).toEqual(expected);
+    })
 }); 
