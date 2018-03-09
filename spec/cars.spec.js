@@ -7,7 +7,7 @@ function makeCar(id, speed){
     };
 }
 
-fdescribe("cars", function(){
+describe("cars", function(){
     it("empty road", function(){
         let road = [
             [null],
