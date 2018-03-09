@@ -5,11 +5,13 @@ function romanes(n){
 	str = str.replace(/VV/g, "X");
     str = str.replace(/VIV/g, "IX");
 	str = str.replace(/XXXXX/g, "L");
-	str = str.replace(/LXXXX/g, "XC");
+	str = str.replace(/XXXX/g, "XL");
 	str = str.replace(/LL/g, "C");
+	str = str.replace(/LXL/g, "XC");
 	str = str.replace(/CCCCC/g, "D");
-	str = str.replace(/DCCCC/g, "CM");
+	str = str.replace(/CCCC/g, "CD");
     str = str.replace(/DD/g, "M");
+	str = str.replace(/DCD/g, "CM");
     return str;
 }
 
@@ -45,6 +47,7 @@ fdescribe("romanes", function(){
         expect(romanes(input)).toEqual(expected);
     });
 
+    
     it("90", function(){
         let input = 90;
         let expected = "XC";
@@ -60,6 +63,30 @@ fdescribe("romanes", function(){
     it("100", function(){
         let input = 100;
         let expected = "C";
+        expect(romanes(input)).toEqual(expected);
+    });
+
+    it("140", function(){
+        let input = 140;
+        let expected = "CXL";
+        expect(romanes(input)).toEqual(expected);
+    });
+
+    it("400", function(){
+        let input = 400;
+        let expected = "CD";
+        expect(romanes(input)).toEqual(expected);
+    });
+
+    it("900", function(){
+        let input = 900;
+        let expected = "CM";
+        expect(romanes(input)).toEqual(expected);
+    });
+
+    it("999", function(){
+        let input = 999;
+        let expected = "CMXCIX";
         expect(romanes(input)).toEqual(expected);
     });
 
