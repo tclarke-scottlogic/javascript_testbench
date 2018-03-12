@@ -1,17 +1,19 @@
+function romani(str, one_symbol, five_symbol, ten_symbol){
+    str = str.replace(new RegExp(one_symbol.repeat(10), "g"), ten_symbol);
+    str = str.replace(new RegExp(one_symbol.repeat(9), "g"),  one_symbol + ten_symbol);
+    str = str.replace(new RegExp(one_symbol.repeat(5), "g"), five_symbol);
+    str = str.replace(new RegExp(one_symbol.repeat(4), "g"), one_symbol + five_symbol);
+    return str;
+}
+
 function romanes(n){
 	str = "I".repeat(n);
-    str = str.replace(/IIIII/g, "V");
-    str = str.replace(/IIII/g, "IV");
-	str = str.replace(/VV/g, "X");
-    str = str.replace(/VIV/g, "IX");
-	str = str.replace(/XXXXX/g, "L");
-	str = str.replace(/XXXX/g, "XL");
-	str = str.replace(/LL/g, "C");
-	str = str.replace(/LXL/g, "XC");
-	str = str.replace(/CCCCC/g, "D");
-	str = str.replace(/CCCC/g, "CD");
-    str = str.replace(/DD/g, "M");
-	str = str.replace(/DCD/g, "CM");
+    
+    str = romani(str, "I", "V", "X");
+    str = romani(str, "X", "L", "C");
+    str = romani(str, "C", "D", "M");
+    str = romani(str, "M", "Q", "N");
+
     return str;
 }
 
@@ -90,6 +92,12 @@ fdescribe("romanes", function(){
         expect(romanes(input)).toEqual(expected);
     });
 
+    it("1000", function(){
+        let input = 1000;
+        let expected = "M";
+        expect(romanes(input)).toEqual(expected);
+    });
+
     it("1994", function(){
         let input = 1994;
         let expected = "MCMXCIV";
@@ -126,10 +134,18 @@ fdescribe("romanes", function(){
         expect(romanes(input)).toEqual(expected);
     });
 
-    it("Loop", function(){
-        for(let i = 0; i <= 2001; ++i){
-            console.info(romanes(i));
-        }
-    })
+    it("10000", function(){
+        let input = 10000;
+        let expected = "N";
+        expect(romanes(input)).toEqual(expected);
+    });
+
+
+    it("16336", function(){
+        let input = 16336;
+        let expected = "NQMCCCXXXVI";
+        expect(romanes(input)).toEqual(expected);
+    });
+
 })
 
