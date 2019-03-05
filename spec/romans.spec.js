@@ -18,7 +18,7 @@ function romanes(n){
 }
 
 
-fdescribe("romanes", function(){
+describe("romanes", function(){
     it("1", function(){
         let input = 1;
         let expected = "I";

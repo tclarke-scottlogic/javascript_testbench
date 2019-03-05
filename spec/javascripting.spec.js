@@ -83,4 +83,48 @@ it("gets interesting", function(){
     };
     expect(merged7).toEqual({thing: "wall", thing2: "b", thing3: "c", thing4: "d"});
 })
+
+
+it("should invert", function(){
+    expect(!undefined).toBe(true);
+    expect(!null).toBe(true);
+    expect(!0).toBe(true);
+})
+
+it("should do undefined checks", function(){
+        expect(undefined === undefined).toBe(true);
+    expect(null === undefined).toBe(false);
+    expect(0 === undefined).toBe(false);
+
+    expect(undefined == undefined).toBe(true);
+    expect(null == undefined).toBe(true);
+    expect(0 == undefined).toBe(false);
+
+    expect(undefined !== undefined).toBe(false);
+    expect(null !== undefined).toBe(true);
+    expect(0 !== undefined).toBe(true);
+
+    expect(undefined != undefined).toBe(false);
+    expect(null != undefined).toBe(false);
+    expect(0 != undefined).toBe(true);
+})
+
+it("should do null checks", function(){
+    expect(undefined === null).toBe(false);
+    expect(null === null).toBe(true);
+    expect(0 === null).toBe(false);
+
+    expect(undefined == null).toBe(true);
+    expect(null == null).toBe(true);
+    expect(0 == null).toBe(false);
+
+    expect(undefined !== null).toBe(true);
+    expect(null !== null).toBe(false);
+    expect(0 !== null).toBe(true);
+
+    expect(undefined != null).toBe(false);
+    expect(null != null).toBe(false);
+    expect(0 != null).toBe(true);
+})
+
 });
